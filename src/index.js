@@ -2,9 +2,15 @@ import express from 'express';
 import morgan from 'morgan';
 import colors from 'colors';
 import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
 
 dotenv.config()
+
 const app = express()
+
+// app.use()
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 if (process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
