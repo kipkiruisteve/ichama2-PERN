@@ -25,5 +25,6 @@ exports.chamaController = async (req,res) => {
     User2.addChama(chama)
     chama.addUser(User1)
     chama.addUser(User2)
+    
     return responseHandler(res,'Added Successfully',201,chama)
 }
