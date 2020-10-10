@@ -1,7 +1,11 @@
 import { Router } from 'express'
-import { chamaController} from '../controllers/web/Chama/AddChama'
+import { loginUser } from '../controllers/web/User/loginUser'
+import { UserController} from '../controllers/web/User'
+import { UserMiddleware } from '../middlewares/auth/'
 const router = Router()
 
-router.route('/').post(chamaController)
 
+router.route('/').post(loginUser)
+router.route('/reset/').post(UserController.changePassword)
+router.route('/user/').get(UserMiddleware.isAuth,UserController.loadUser)
 export default router

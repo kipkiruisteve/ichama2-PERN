@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.belongsToMany(models.Chama,{
-        through:models.ChamaUser,
-        as:'users',
+        through:"ChamaUser",
+        // as:'users',
         foreignKey:'userId'
       })
     }
@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     password: DataTypes.STRING,
     pin: DataTypes.STRING,
-    phoneNumber: DataTypes.STRING
+    phoneNumber: DataTypes.STRING,
+    isOfficial:DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'User',

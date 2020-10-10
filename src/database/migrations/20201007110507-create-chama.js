@@ -14,6 +14,9 @@ module.exports = {
       location: {
         type: Sequelize.STRING
       },
+      monthlyContribution:{
+      type: Sequelize.STRING  
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

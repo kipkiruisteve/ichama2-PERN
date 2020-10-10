@@ -20,6 +20,11 @@ module.exports = {
       phoneNumber: {
         type: Sequelize.STRING
       },
+      isOfficial:{
+        allowNull: false,
+        type:Sequelize.BOOLEAN,
+        defaultValue:false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -12,15 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Chama.belongsToMany(models.User,{
-        through:models.ChamaUser,
-        as:'chamas',
+        through:"ChamaUser",
+        // as:'chamas',
         foreignKey:'chamaId'
       })
     }
   };
   Chama.init({
     name: DataTypes.STRING,
-    location: DataTypes.STRING
+    location: DataTypes.STRING,
+    monthlyContribution:DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Chama',

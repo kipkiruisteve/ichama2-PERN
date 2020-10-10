@@ -14,8 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   ChamaUser.init({
-    chamaId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'ChamaUser',
