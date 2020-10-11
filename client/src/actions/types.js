@@ -1,0 +1,4 @@
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
+export const LOGIN_FAIL = "LOGIN_FAIL"
+export const ADD_CHAMA_SUCCESS = "ADD_CHAMA_SUCCESS"
+export const ADD_CHAMA_FAIL = "ADD_CHAMA_FAIL"

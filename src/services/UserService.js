@@ -28,7 +28,7 @@ export default class UserService {
             }
             return data 
         } else {
-            return "Passwords do not match"
+            return null
         }
     }
     static async  changePassword(username,password){
