@@ -29,7 +29,7 @@ class Login extends React.Component{
             <section id="wrapper">
                 <div id="left">
                     <div className="logo">
-                    <i class="fas fa-wallet"></i>
+                    <i class="fas fa-wallet fa-7x"></i>
                         <p>Ichama</p>
                     </div>
                     <div id="signin">
@@ -43,6 +43,7 @@ class Login extends React.Component{
                         <input type="password" minLength="8" placeholder="Ennter your password here" required value={password} onChange={this.onChange} name="password" className="form-control"  />
                     </div>
                     <button className="primary-btn">Log in </button>
+                    <Link to='/reset'>Forgot your password? </Link>
                         </form>
                     </div>
                 </div>

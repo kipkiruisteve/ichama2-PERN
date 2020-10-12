@@ -22,7 +22,9 @@ export default class ChamaService {
     static async checkChamaOfficial(chamaId){
         const chama = await Chama.findByPk(chamaId,{include:[{
             model:User,
-            attributes:['phoneNumber','username','isOfficial']
+            attributes:['id','phoneNumber','username','isOfficial']
+            // order: [['id']]
+
         }]})
         return chama
     }

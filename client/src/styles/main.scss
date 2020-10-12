@@ -80,12 +80,20 @@ header{
             text-decoration: underline;
         }
     }
+    .ead{
+        margin-top: 0.8rem;
+        color:green;
+    }
     .grids{
         display: grid;
         grid-template-columns: repeat(2,1fr);
         h1{
             padding: 0;
             margin-top: 0;
+        }
+        li{
+            float: right;
+            justify-content: end;
         }
     }
     /* Dropdown Button */
@@ -232,6 +240,66 @@ header{
             }
         }
         
+    }
+}
+#dashboard{
+    min-height: 80vh;
+    padding:2rem;
+    .container{
+        display: grid;
+        grid-template-columns: 70% 30%;
+        grid-gap:1rem;
+    }
+    #customers{
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        text-align: center;
+        width: 100%;
+        td,  th {
+            border: 1px solid #ddd;
+            padding: 8px;
+          }
+        tr:nth-child(even){background-color: #f2f2f2;}
+        tr:hover {background-color: #ddd;}
+           th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+          }
+        }
+        .summary-details{
+            margin-top: 3vh;
+        }
+}
+#chama{
+    padding:2rem;
+    min-height: 80vh;
+    h1{
+        margin:1.2rem;
+    }
+    p{
+        margin: 1.1rem;
+    }
+    .gridc{
+        display: grid;
+        grid-template-columns: 70% 30%;
+        grid-gap: -3rem;
+        .div {
+            // text-align: center;
+            width: 500px;
+            margin: auto;
+        }
+    }
+}
+.reset{
+    background-color: rgb(55,100,144);
+    color: #fff;
+    padding:2rem;
+    min-height:80vh;
+    h1{
+        text-align:center;
     }
 }
 footer{
