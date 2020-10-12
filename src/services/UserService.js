@@ -3,22 +3,26 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { getRandomString } from '../helpers/randomify'
 import crypto from 'crypto'
+import { sendSms} from '../helpers/sms/sendSms'
+import { send } from 'process'
 export default class UserService {
     static async createUser(userDetails){
         try { 
         const pin =  getRandomString(4)
         const password = getRandomString(6)
-        salt = crypto.randomBytes(16).toString('hex');
-        hashPassword = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-        hashPin = crypto.pbkdf2Sync(pin, salt, 1000, 64, 'sha512').toString('hex');
+        const salt = crypto.randomBytes(16).toString('hex');
+        const hashPassword = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+        const hashPin = crypto.pbkdf2Sync(pin, salt, 1000, 64, 'sha512').toString('hex');
         const user = await User.create({
             username:userDetails.offName,
             phoneNumber:userDetails.offPhone,
-            pin:hasPin,
-            password:hPassword,
+            pin:hashPin,
+            password:hashPassword,
             isOfficial:true
         });
-
+        const sms_text = 
+            `Hi, Your 6 digit password is ${hashPassword} and 4-digit pin is ${hashPin}`
+        await sendSms(phoneNumber,sms_text)
         return user;
         } catch (err){
             return err

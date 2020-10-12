@@ -1,18 +1,34 @@
-import { Chama , User} from '../database/models'
+import { Chama , User,Transaction} from '../database/models'
 // import bcrypt from 'bcrypt'
+import moment from 'moment'
 
 
 export default class ChamaService {
-    static async createChama(chamaDetails){
+    static async createChama(chamaDetails,User1,User2){
+        console.log(chamaDetails)
         const chama  = await Chama.create({
             name:chamaDetails.chamaName,
             location:chamaDetails.chamaLocation,
             monthlyContribution:chamaDetails.monthlyContribution
         })
-        
-        await chama.addUser(chamaDetails.use1)
-        await chama.addUser(chamaDetails.use2)
-        console.log()
+        const ids = chama.id
+        console.log(moment().add(1,'M'))
+        const ui = {
+            chamaId:ids,
+            userId:User1.id,
+            nextPaymentDate:moment().add(1,'M')
+        }
+        const ui2 = {
+            chamaId:ids,
+            userId:User2.id,
+            nextPaymentDate:moment().add(1,'M')
+        }
+        console.log(ui2)
+        await Transaction.create(
+            ui, { raw: true })
+        await Transaction.create(
+            ui2, { raw: true }
+        )
         return chama
     }
     static async checkChama(chamaId){

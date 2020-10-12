@@ -17,10 +17,11 @@ exports.chamaController = async (req,res) => {
     const User2 = await UserService.createUser(user2)
     const use1 = User1.id
     const use2 = User2.id
+    console.log(User1)
     const chamaDetails = {
         chamaName,chamaLocation,use1,use2,monthlyContribution
     }
-    const chama = await ChamaService.createChama(chamaDetails)
+    const chama = await ChamaService.createChama(chamaDetails,User1,User2)
     User1.addChama(chama)
     User2.addChama(chama)
     chama.addUser(User1)

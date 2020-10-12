@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         // as:'chamas',
         foreignKey:'chamaId'
       })
+      Chama.hasMany(models.Transaction, {
+        foreignKey: 'chamaId', 
+        sourceKey: 'id',
+      });
     }
   };
   Chama.init({

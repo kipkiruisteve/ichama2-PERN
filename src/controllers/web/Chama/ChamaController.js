@@ -1,6 +1,6 @@
 import { response } from 'express'
 import responseHandler from '../../../helpers/responsehandler'
-import {UserService,ChamaService} from '../../../services'
+import {UserService,ChamaService,TransactionService} from '../../../services'
 
 
 
@@ -9,6 +9,8 @@ export default class ChamaController {
         try {
             const { chamaId } = req.params
             const chama = await ChamaService.checkChama(chamaId)
+            const transaction = await TransactionService.checkTransactionStatus(req.user.id,chamaId)
+            console.log(transaction)
             return responseHandler(res,'Chama Loaded successfully',200,chama)
         } catch (err){
             return responseHandler(res,'Chama does not exist',404,err)
@@ -18,6 +20,8 @@ export default class ChamaController {
         try {
             const { chamaId } = req.params
             const chama = await ChamaService.checkChamaOfficial(chamaId)
+            // const transaction = await TransactionService.checkTransactionStatus(req.user.id,chamaId)
+            // console.log(transaction)
             return responseHandler(res,'Chama Loaded successfully',200,chama)
         } catch (err){
             return responseHandler(res,'Chama does not exist',404,err)

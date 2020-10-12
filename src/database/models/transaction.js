@@ -10,11 +10,21 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // define association 
+      Transaction.belongsTo(models.Chama,{
+        foreignKey: 'chamaId', 
+        targetKey: 'id',
+        onDelete: 'CASCADE',
+      });
+      Transaction.belongsTo(models.User,{
+        foreignKey: 'userId', 
+        targetKey: 'id',
+        onDelete: 'CASCADE',
+      });
     }
   };
   Transaction.init({
-    name: DataTypes.STRING
+    nextPaymentDate:DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Transaction',

@@ -8,8 +8,34 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      amount: {
+        type: Sequelize.FLOAT
+      },
+      chamaId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'set null',
+        allowNull: false,
+        references: {
+          model: 'Chamas',
+          key: 'id',
+        }
+      },
+      userId:{
+        type: Sequelize.INTEGER,
+        onDelete: 'set null',
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id',
+        }
+      },
+      isPaid:{
+        type: Sequelize.BOOLEAN,
+        defaultValue:false
+      },
+      nextPaymentDate:{
+        allowNull: false,
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
