@@ -38,9 +38,9 @@ export const loadOffChama = id => (dispatch,getState) => {
         })
         .catch(err => console.log(err))
 }
-export const addMember = ({ id, phoneNumber,username}) => (dispatch,getState) => {
-    console.log(id, phoneNumber,username)
-    const body = JSON.stringify({id, phoneNumber,username})
+export const addMember = ({ id, phoneNumber}) => (dispatch,getState) => {
+    console.log(id, phoneNumber)
+    const body = JSON.stringify({chamaId:id, phoneNumber})
     axios.post('/api/add_member/',body,tokenConfig(getState))
         .then(res => {
             dispatch({

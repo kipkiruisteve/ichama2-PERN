@@ -8,6 +8,10 @@ import { send } from 'process'
 export default class UserService {
     static async createUser(userDetails){
         try { 
+        const useris = await User.findOne({where:{phoneNumber:userDetails.offPhone}})
+        if (useris != null ){
+            return useris
+        }
         const pin =  getRandomString(4)
         const password = getRandomString(6)
         const salt = crypto.randomBytes(16).toString('hex');
@@ -20,9 +24,8 @@ export default class UserService {
             password:hashPassword,
             isOfficial:true
         });
-        const sms_text = 
-            `Hi, Your 6 digit password is ${hashPassword} and 4-digit pin is ${hashPin}`
-        await sendSms(phoneNumber,sms_text)
+        const sms_text = `Hi, Your 6 digit password is ${password} and 4-digit pin is ${pin}`
+        await sendSms(userDetails.offPhone,sms_text)
         return user;
         } catch (err){
             return err
@@ -31,7 +34,8 @@ export default class UserService {
     }
     static async login(username,password){
         const user = await User.findOne({where:{phoneNumber:username}})
-        const salt = crypto.randomBytes(16).toString('hex');
+        if (user){
+            const salt = crypto.randomBytes(16).toString('hex');
         const isPassword = crypto.pbkdf2Sync(password,salt, 1000, 64, 'sha512').toString('hex');
         console.log(isPassword)
         if (isPassword){
@@ -45,6 +49,8 @@ export default class UserService {
         } else {
             return null
         }
+        }
+        
     }
     static async  changePassword(username,password){
         const user = await User.findOne({where:{phoneNumber:username}});
@@ -53,6 +59,8 @@ export default class UserService {
         console.log(hpassword)
         await user.update({password:hpassword});
         await user.save()
+        const sms_text = `You have successfully updated your password to ${password}`
+        await sendSms(username,sms_text)
         const token = jwt.sign(user.id,process.env.TOKEN_SECRET)
         const data = {
             user,
@@ -60,8 +68,26 @@ export default class UserService {
         }
         return data 
     }
-    static async checkUser(phoneNumber,username){
-        const user = User.findOne({where:{phoneNumber:phoneNumber,username:username}})
-        return user
+    static async checkUser(phoneNumber){
+        const user = await User.findOne({where:{phoneNumber:phoneNumber}})
+        console.log(user)
+        if (user != null){
+            return user
+        } else {
+            const pin =  getRandomString(4)
+        const password = getRandomString(6)
+        const salt = crypto.randomBytes(16).toString('hex');
+        const hashPassword = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+        const hashPin = crypto.pbkdf2Sync(pin, salt, 1000, 64, 'sha512').toString('hex');
+        const user1 = await User.create({
+            phoneNumber,
+            pin:hashPin,
+            password:hashPassword
+        });
+        const sms_text = `Hi, Your 6 digit password is ${password} and 4-digit pin is ${pin}`
+        await sendSms(phoneNumber,sms_text)
+        return user1;
+        }
+        
     }
 }

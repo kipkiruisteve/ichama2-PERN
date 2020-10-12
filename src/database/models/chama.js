@@ -25,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
   Chama.init({
     name: DataTypes.STRING,
     location: DataTypes.STRING,
-    monthlyContribution:DataTypes.STRING
+    monthlyContribution:DataTypes.STRING,
+    currentBalance:DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Chama',

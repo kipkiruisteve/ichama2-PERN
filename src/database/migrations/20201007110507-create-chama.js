@@ -17,6 +17,10 @@ module.exports = {
       monthlyContribution:{
       type: Sequelize.STRING  
       },
+      currentBalance:{
+        type: Sequelize.STRING  ,
+        defaultValue:0
+        },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

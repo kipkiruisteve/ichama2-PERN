@@ -1,7 +1,8 @@
 import { UserService } from '../../../services'
 import responseHandler from '../../../helpers/responsehandler'
 exports.loginUser = async (req,res) => {
-    const { username, password} = req.body 
+    try { 
+        const { username, password} = req.body 
     const user = await UserService.login(username,password)
     console.log(user)
     if (user != null){
@@ -9,4 +10,8 @@ exports.loginUser = async (req,res) => {
     } else {
         return null
     }   
+    } catch (err){
+        return err
+    }
+    
 }
