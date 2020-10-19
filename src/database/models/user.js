@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         // as:'users',
         foreignKey:'userId'
       })
+      User.hasMany(models.Transaction, {
+        foreignKey: 'userId', 
+        sourceKey: 'id',
+      });
     }
   };
   User.init({
@@ -22,7 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     pin: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
-    isOfficial:DataTypes.BOOLEAN
+    isOfficial:DataTypes.BOOLEAN,
+    // isChairman:DataTypes.BOOLEAN,
+    // isTreasurer:DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'User',

@@ -1,18 +1,41 @@
-import { Chama , User} from '../database/models'
+import { Chama , User,Transaction} from '../database/models'
 // import bcrypt from 'bcrypt'
+import moment from 'moment'
 
 
 export default class ChamaService {
-    static async createChama(chamaDetails){
+    static async createChama(chamaDetails,User1,User2){
+        console.log(chamaDetails)
         const chama  = await Chama.create({
             name:chamaDetails.chamaName,
             location:chamaDetails.chamaLocation,
             monthlyContribution:chamaDetails.monthlyContribution
         })
-        
-        await chama.addUser(chamaDetails.use1)
-        await chama.addUser(chamaDetails.use2)
-        console.log()
+        const ids = chama.id
+        console.log(moment().add(1,'M'))
+        const ui = {
+            chamaId:ids,
+            userId:User1.id,
+            nextPaymentDate:moment().add(1,'M')
+        }
+        const ui2 = {
+            chamaId:ids,
+            userId:User2.id,
+            nextPaymentDate:moment().add(1,'M')
+        }
+        console.log(ui2)
+        await Transaction.create(
+            ui, { raw: true })
+        await Transaction.create(
+            ui2, { raw: true }
+        )
+        return chama
+    }
+    static async removeMember(chamaId,userId){
+        const user = await User.findByPk(userId)
+        const chama = await Chama.findByPk(chamaId)
+        chama.removeUser(user)
+        console.log(chama)
         return chama
     }
     static async checkChama(chamaId){
@@ -22,8 +45,18 @@ export default class ChamaService {
     static async checkChamaOfficial(chamaId){
         const chama = await Chama.findByPk(chamaId,{include:[{
             model:User,
-            attributes:['phoneNumber','username','isOfficial']
+            attributes:['id','phoneNumber','username','isOfficial']
+
         }]})
+        // console.log(chama)
+        return chama
+    }
+    static async ListAdmin(){
+        const chamas = await Chama.findAll()
+        return chamas
+    }
+    static async deleteAdmin(chamaId){
+        const chama  = await Chama.findByPk(chamaId)
         return chama
     }
 }
