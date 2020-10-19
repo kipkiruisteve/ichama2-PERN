@@ -9,6 +9,9 @@ class Header extends React.Component{
                 {/* <h1>Ichama</h1> */}
                 <Link to="/" className="ead"><h1> Ichama</h1> </Link>
             <ul>
+                {/* <li>
+                    <Link to="/loans/">Past Loans</Link>
+                </li> */}
             <a><button onClick= {this.props.logOut} className="primary-btn"><i class="fas fa-sign-out-alt"> Log out</i></button></a>
 
                 </ul>

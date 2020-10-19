@@ -31,6 +31,13 @@ export default class ChamaService {
         )
         return chama
     }
+    static async removeMember(chamaId,userId){
+        const user = await User.findByPk(userId)
+        const chama = await Chama.findByPk(chamaId)
+        chama.removeUser(user)
+        console.log(chama)
+        return chama
+    }
     static async checkChama(chamaId){
         const chama = Chama.findOne({where:{id:chamaId}})
         return chama
@@ -39,9 +46,17 @@ export default class ChamaService {
         const chama = await Chama.findByPk(chamaId,{include:[{
             model:User,
             attributes:['id','phoneNumber','username','isOfficial']
-            // order: [['id']]
 
         }]})
+        // console.log(chama)
+        return chama
+    }
+    static async ListAdmin(){
+        const chamas = await Chama.findAll()
+        return chamas
+    }
+    static async deleteAdmin(chamaId){
+        const chama  = await Chama.findByPk(chamaId)
         return chama
     }
 }

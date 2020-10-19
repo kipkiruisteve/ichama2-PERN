@@ -20,7 +20,7 @@ class Dashboard extends React.Component{
       </thead>
       <tbody>
       {
-                   auth.user && auth.user.Chamas && auth.user.Chamas.map(order_item => (
+                    auth.user.Chamas && auth.user.Chamas.map(order_item => (
                         <tr key={ order_item.id }>
                         <td>{ order_item.name}</td>
                         <td>{ order_item.monthlyContribution}</td>
@@ -33,10 +33,10 @@ class Dashboard extends React.Component{
       </tbody>
     </table>
     </div>
-            <div>
-                <i class="fas fa-user-tie fa-7x"></i>
-            <h1>Your username:{auth.user && auth.user.username}</h1>
-            <p>Phone Number:{auth.user && auth.user.phoneNumber}</p>
+            <div class="card">
+                <i class="fas fa-user-tie fa-5x"></i>
+            <p>{auth.user && auth.user.username}</p>
+            <p>{auth.user && auth.user.phoneNumber}</p>
             </div>
                 </div>
             </section>
